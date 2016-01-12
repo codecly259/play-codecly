@@ -1,8 +1,10 @@
 # play! 1.x 测试使用
 
-##  运行环境
-jdk 1.6
-play framework 1.4.1
+## 运行环境
+- jdk 1.6
+- play framework 1.4.1
+
+## 代码部署
 
 代码运行在heroku云平台上
 
