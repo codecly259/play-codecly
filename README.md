@@ -1,7 +1,7 @@
 # play! 1.x 测试使用
 
 ## 运行环境
-- jdk 1.6
+- jdk 1.6.0_27
 - play framework 1.4.1
 
 ## 代码部署
