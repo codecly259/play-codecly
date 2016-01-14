@@ -91,5 +91,36 @@ public class BasicTest extends UnitTest {
     	assertNotNull(secondComment.postedAt);
     	
     }
+    
+    @Test
+    public void useTheCommentRelation(){
+    	// 创建并保存用户
+    	User bob = new User("bob@gmail.com", "secret", "Bob").save();
+    	// 创建并保存文章
+    	Post bobPost = new Post("my first post", "hello world", bob).save();
+    	// 给文章添加评论
+    	bobPost.addComment("Jeff", "Nice post");
+    	bobPost.addComment("Tom", "I knew that!");
+    	
+    	// 计数
+    	assertEquals(1, User.count());
+    	assertEquals(1, Post.count());
+    	assertEquals(2, Comment.count());
+    	
+    	// 查询 Bob的文章
+    	bobPost = Post.find("byAuthor", bob).first();
+    	assertNotNull(bobPost);
+    	
+    	// 测试文章的评论
+    	assertEquals(2, bobPost.comments.size());
+    	assertEquals("Jeff", bobPost.comments.get(0).author);
+    	
+    	// 删除文章,测试文章下的评论是否删除
+    	bobPost.delete();
+    	assertEquals(1, User.count());
+    	assertEquals(0, Post.count());
+    	assertEquals(0, Comment.count());
+    }
+    
 
 }
