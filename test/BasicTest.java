@@ -3,6 +3,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import models.Comment;
 import models.Post;
 import models.User;
 import play.test.Fixtures;
@@ -58,6 +59,37 @@ public class BasicTest extends UnitTest {
     	assertEquals("my first post", firstPost.title);
     	assertEquals("hello world", firstPost.content);
     	assertNotNull(firstPost.postedAt);
+    }
+    
+    @Test
+    public void postComments() {
+    	// 创建并保存用户
+    	User bob = new User("bob@gmail.com", "secret", "Bob").save();
+    	// 创建并保存文章
+    	Post bobPost = new Post("my first post", "hello world", bob).save();
+    	
+    	// 添加评论
+    	new Comment(bobPost, "Jeff", "Nice post").save();
+    	new Comment(bobPost, "Tom", "I knew that!").save();
+    	
+    	// 查询所有评论
+    	List<Comment> bobPostComments = Comment.find("byPost", bobPost).fetch();
+    	
+    	// 测试
+    	assertEquals(2, bobPostComments.size());
+    	
+    	Comment firstComment = bobPostComments.get(0);
+    	assertNotNull(firstComment);
+    	assertEquals("Jeff", firstComment.author);
+    	assertEquals("Nice post", firstComment.content);
+    	assertNotNull(firstComment.postedAt);
+    	
+    	Comment secondComment = bobPostComments.get(1);
+    	assertNotNull(secondComment);
+    	assertEquals("Tom", secondComment.author);
+    	assertEquals("I knew that!", secondComment.content);
+    	assertNotNull(secondComment.postedAt);
+    	
     }
 
 }
