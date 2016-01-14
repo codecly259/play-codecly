@@ -122,5 +122,41 @@ public class BasicTest extends UnitTest {
     	assertEquals(0, Comment.count());
     }
     
+    @Test
+    public void fullTestUseDatatestyml(){
+    	Fixtures.loadModels("data-test.yml");
+    	
+    	// 测试相关数据个数
+    	assertEquals(2, User.count());
+    	assertEquals(3, Post.count());
+    	assertEquals(3, Comment.count());
+    	
+    	// 尝试使用用户登录
+    	assertNotNull(User.connect("bob@gmail.com", "secret"));
+    	assertNotNull(User.connect("jeff@gmail.com", "secret"));
+    	assertNull(User.connect("jeff@gmail.com", "bad password"));
+    	assertNull(User.connect("tom@gmail.com","secret"));
+    	
+    	// 查询Bob的所有文章
+    	List<Post> bobPosts = Post.find("author.email", "bob@gmail.com").fetch();
+    	assertEquals(2, bobPosts.size());
+    	
+    	// 查询bob文章的所有评论
+    	List<Comment> bobComments = Comment.find("post.author.email", "bob@gmail.com").fetch();
+    	assertEquals(3, bobComments.size());
+    	
+    	// 查询最新的文章
+    	Post frontPost = Post.find("order by postedAt desc").first();
+    	assertNotNull(frontPost);
+    	assertEquals("About the model layer", frontPost.title);
+    	// 检查这篇文章的评论个数
+    	assertEquals(2, frontPost.comments.size());
+    	
+    	// 给最新的文章添加新的评论
+    	frontPost.addComment("Jim", "Hello guys");
+    	assertEquals(3, frontPost.comments.size());
+    	assertEquals(4, Comment.count());
+    	
+    }
 
 }
