@@ -10,7 +10,7 @@
 		</h2>
 		<div class="post-metadata">
 			<span class="post-author">${frontPost.author.fullname}</span>
-			<span class="post-date">${frontPost.postedAt.format('MMM dd')}</span>
+			<span class="post-date">${frontPost.postedAt.format('MM月dd日')}</span>
 			<span class="post-comments">
 				&nbsp;|&nbsp;
 				${frontPost.comments.size() ?: 'no'}
@@ -39,7 +39,7 @@
 							by ${oldPost.author.fullname}
 						</span>
 						<span class="post-date">
-							${oldPost.postedAt.format('dd MMM yy')}
+							${oldPost.postedAt.format('yyyy年MM月dd日')}
 						</span>
 						<div class="post-comments">
 							${oldPost.comments.size() ?: 'no'}
