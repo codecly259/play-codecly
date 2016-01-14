@@ -20,5 +20,10 @@ public class Application extends Controller {
 		List<Post> olderPosts = Post.find("order by postedAt desc").from(1).fetch(10);
 		render(frontPost, olderPosts);
 	}
+	
+	public static void show(Long id) {
+		Post post = Post.findById(id);
+		render(post);
+	}
 
 }
