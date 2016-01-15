@@ -18,5 +18,41 @@
  	#{/if}
 </ul>
 
-
 #{display post:post, as:'full' /}
+
+<h3>Post a comment</h3>
+
+#{form @Application.postComment(post.id)}
+	
+	#{ifErrors}
+		<p class="error">
+			所有的字段都是必填项！
+		</p>
+	#{/ifErrors}
+
+	<p>
+		<label for="author">你的名字: </label>
+		<input type="text" name="author" id="author">
+	</p>
+	<p>
+		<label for="conetnt">你的评论: </label>
+		<textarea name="content" id="content"></textarea>
+	</p>
+	<p>
+		<input type="submit" value="提交评论">		
+	</p>
+#{/form}
+
+<script type="text/javascript">
+	$(function(){
+		$('form').click(function(){
+			$('form').expose({api: true}).load();
+		});
+		
+		// 如果出现错误，聚焦到表单
+		if($('form .error').size()){
+			$('form').expose({api: true, loadSpeed: 0}).load();
+			$('form input[type=text]').get(0).focus();
+		}
+	});
+</script>
