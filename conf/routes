@@ -6,7 +6,7 @@
 GET     /                                       Application.index
 
 # show  post
-GET		/posts/{<[0-9]+>id}								Application.show
+GET		/posts/{<[0-9]+>id}						Application.show
 GET		/posts/{postId}/comments				Application.postComment
 GET		/captcha								Application.captcha
 
@@ -19,6 +19,9 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Catch all
-*       /{controller}/{action}                  {controller}.{action}
+*		/{controller}/{action}					{controller}.{action}
+
+# Import CRUD routes
+*     	/admin           						module:crud
 
 
