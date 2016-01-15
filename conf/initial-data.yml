@@ -10,6 +10,18 @@ User(jeff):
     email:          jeff@gmail.com
     password:       secret
     fullname:       Jeff    
+
+Tag(play):
+    name:           Play
+
+Tag(architecture):
+    name:           Architecture
+
+Tag(test):
+    name:           Test
+
+Tag(mvc):
+    name:           MVC
     
 Post(firstBobPost):
     title:          About the model layer
@@ -25,6 +37,9 @@ Post(firstBobPost):
                     business situation, and business rules. State that reflects the business situation 
                     is controlled and used here, even though the technical details of storing it are 
                     delegated to the infrastructure. This layer is the heart of business software.
+    tags:
+                    - architecture
+                    - play
 
 Post(secondBobPost):
     title:          Just a test of YABE
@@ -32,6 +47,8 @@ Post(secondBobPost):
     author:         bob
     content:        >
                     Well, it's just a test.
+    tags:
+                    - architecture
                     
 Post(jeffPost):
     title:          The MVC application
@@ -44,6 +61,10 @@ Post(jeffPost):
                     This pattern splits the application into separate layers: the Presentation 
                     layer and the Model layer. The Presentation layer is further split into a 
                     View and a Controller layer.
+    tags:
+                    - play
+                    - architecture
+                    - mvc
                     
 Comment(c1):
     author:         Guest
@@ -65,4 +86,6 @@ Comment(c3):
                     This post is useless ?
     postedAt:       2009-04-05
     post:           secondBobPost    
+
+
                  

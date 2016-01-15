@@ -79,5 +79,10 @@ public class Application extends Controller {
 		System.out.println("验证码："+code);
 		renderBinary(captcha);
 	}
+	
+	public static void listTagged(String tag) {
+		List<Post> posts = Post.findTaggedWith(tag);
+		render(tag, posts);
+	}
 
 }

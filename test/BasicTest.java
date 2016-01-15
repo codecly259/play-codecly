@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import models.Comment;
 import models.Post;
+import models.Tag;
 import models.User;
 import play.test.Fixtures;
 import play.test.UnitTest;
@@ -178,6 +179,7 @@ public class BasicTest extends UnitTest {
     	assertEquals(2, Post.findTaggedWith("Red").size());
     	assertEquals(1, Post.findTaggedWith("Green").size());
     	assertEquals(1, Post.findTaggedWith("Blue").size());
+    	assertEquals("[{pound=1, tag=Blue}, {pound=1, tag=Green}, {pound=2, tag=Red}]", Tag.getCloud().toString());
     }
 
 }
