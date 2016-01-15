@@ -3,10 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -35,12 +38,16 @@ public class Post extends Model {
 	@OneToMany(mappedBy="post", cascade=CascadeType.ALL)
 	public List<Comment> comments;
 	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	public Set<Tag> tags;
+	
 	public Post(String title, String content, User author) {
 		this.title = title;
 		this.content = content;
 		this.author = author;
 		this.postedAt = new Date();
 		this.comments = new ArrayList<Comment>();
+		this.tags = new TreeSet<Tag>();
 	}
 	
 	public Post addComment(String author, String content) {
@@ -48,6 +55,27 @@ public class Post extends Model {
 		this.comments.add(newComment);
 		this.save();
 		return this;
+	}
+	
+	/**
+	 * 给文章添加标签
+	 * @param name 标签名
+	 * @return 返回添加过标签的文章
+	 */
+	public Post tagItWith(String name) {
+		tags.add(Tag.findOrCreateByName(name));
+		return this;
+	}
+	
+	/**
+	 * 查询含有标签的所有文章
+	 * @param tag 标题(名称)
+	 * @return 返回包含此标签的所有文章
+	 */
+	public static List<Post> findTaggedWith(String tag) {
+		return Post.find(
+				"select distinct p from Post p join p.tags as t where t.name = ?", tag
+				).fetch();
 	}
 	
 	public Post previous() {

@@ -158,5 +158,26 @@ public class BasicTest extends UnitTest {
     	assertEquals(4, Comment.count());
     	
     }
+    
+    @Test
+    public void testTags() {
+    	// 创建并保存用户
+    	User savag = new User("demo@oopsplay.org", "123", "savag").save();
+    	// 发表文章
+    	Post savagPost = new Post("My First post", "Hello Play", savag).save();
+    	Post anotherSavagPost = new Post("My second post", "Hello Play2", savag).save();
+    	
+    	// 测试
+    	assertEquals(0, Post.findTaggedWith("Red").size());
+    	
+    	// 为文章添加标签
+    	savagPost.tagItWith("Red").tagItWith("Blue").save();
+    	anotherSavagPost.tagItWith("Red").tagItWith("Green").save();
+    	
+    	// 测试
+    	assertEquals(2, Post.findTaggedWith("Red").size());
+    	assertEquals(1, Post.findTaggedWith("Green").size());
+    	assertEquals(1, Post.findTaggedWith("Blue").size());
+    }
 
 }
