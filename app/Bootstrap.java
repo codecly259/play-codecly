@@ -4,7 +4,7 @@ import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
 
 @OnApplicationStart
-public class Bootstrap<V> extends Job<V> {
+public class Bootstrap extends Job<Bootstrap> {
 	
 	public void doJob() {
 		// 检查数据是否为空，为空则加载测试文件内的内容
