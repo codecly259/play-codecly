@@ -20,4 +20,11 @@ public class Admin extends Controller {
 		render();
 	}
 	
+	static void onDisconnected() {
+		Application.index();
+	}
+	
+	static void onAuthenticated() {
+		Admin.index();
+	}
 }
