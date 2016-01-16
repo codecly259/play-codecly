@@ -5,10 +5,10 @@
 	
 #{list items:posts, as:'post'}
 	<p class="post ${post_parity}">
-		<a href="#">${post.title}</a>
+		<a href="@{Admin.form(post.id)}">${post.title}</a>
 	</p>
 #{/list}
 
 <p id="newPost">
-	<a href="#"><span>+</span>write a new post</a>
+	<a href="@{form()}"><span>+</span>write a new post</a>
 </p>
