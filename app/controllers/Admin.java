@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.List;
+
+import models.Post;
 import models.User;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -17,7 +20,9 @@ public class Admin extends Controller {
 	}
 	
 	public static void index() {
-		render();
+		String user = Security.connected();
+		List<Post> posts = Post.find("author.email", user).fetch();
+		render(posts);
 	}
 	
 	static void onDisconnected() {
